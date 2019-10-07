@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+</head>
+<style>
+    .comments {
+  width: 300px;
+  border: 15px solid blue;
+  padding: 50px;
+  margin: 20px;
+}
+</style>
+<body>
+<div class="comments">
+Comments: <ol>
+{% for co in com %}
+    <li>{{ co['Comment'] }}</li>
+    {% endfor %} </ol></div>
+<footer>
+    <form action="{{ url_for('details')}}" method="GET">
+
+
+		<input type="submit" class="btn-info" value="Search" align="center">
+
+	</form>
+
+</footer>
+</body>
+</html>

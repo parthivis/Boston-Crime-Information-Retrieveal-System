@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+<style>
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+    .details {
+  width: 300px;
+  border: 15px solid green;
+  padding: 50px;
+  margin: 20px;
+}
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+.custom-counter {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.custom-counter li {
+  counter-increment: step-counter;
+  margin-bottom: 5px;
+}
+.custom-counter li::before {
+  content: counter(step-counter);
+  margin-right: 20px;
+  font-size: 80%;
+  background-color: rgb(180, 180, 180);
+  color: white;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 11px;
+}
+.comments
+{
+float: right;
+     border: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  height: calc(100% - 1.2em);
+  margin-top: 1.2em; /* prevents the code from going behind the label */
+  outline: none; /
+}
+</style>
+<body>
+
+
+<form action="{{ url_for('details')}}" method="GET">
+		<h2>Find the Location of Crime.. Enter the Location in Boston</h2>
+
+		<input type="text" name="message" rows="4" cols="50" placeholder="Enter The Area"></input>
+		<br/>
+
+		<input type="submit" class="btn-info" value="predict" align="center">
+
+	</form><header>
+    <img src="data:;base64, {{ img }}" alt="P">
+
+{% for s in street %}<h1>Name of Area:</h1> <h2>{{ s['STREET'] }} </h2> {% endfor %}
+<h1>Number of Crimes Reported Recently</h1> <h2>{{ count }} </h2>
+
+<div class="maps">
+<form action="{{ url_for('map')}}">
+    <input type="submit" value="See Location">
+</form>
+</div>
+    </header>
+
+
+
+    {% for of in offence %}
+<div class="details">
+    <ol class="custom-counter"> <li>
+         <h2> Type of Incident: {{ of['OFFENSE_CODE_GROUP'] }}</h2>
+         <h2>Date and Time of Incident {{ of['OCCURRED_ON_DATE'] }}</h2>
+     </li>
+</ol>
+</div>
+    {% endfor %}
+
+<footer> COMMENTS
+<div class="comments">
+    Comments:
+<form action="{{ url_for('comments')}}" method="GET">
+    <input type="text" name="comment" placeholder="Enter your comment">
+    <input type="submit" value="Post Comment and show comments" style="align:center">
+</form>
+</div>
+    </footer>
+</body>
+</html>
